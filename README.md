@@ -96,17 +96,17 @@ Classifier.API: Elements that are not non-APIs.
 
 ## Usage
 
-APIDiff is available in the [Maven Central Repository](https://mvnrepository.com/artifact/com.github.aserg-ufmg/apidiff/2.0.0):
+APIDiff is available in the [Maven Central Repository](https://mvnrepository.com/artifact/com.github.aserg-ufmg/apiTimeLIfe/2.0.0):
 
 ```xml
 <dependency>
-    <groupId>com.github.aserg-ufmg</groupId>
-    <artifactId>apidiff</artifactId>
+    <groupId>com.github.fhandrick</groupId>
+    <artifactId>apiTimeLIfe</artifactId>
     <version>2.0.0</version>
 </dependency>
 ```
 ## Publications
 
-Aline Brito, Laerte Xavier, Andre Hora, Marco Tulio Valente. [APIDiff: Detecting API Breaking Changes](http://homepages.dcc.ufmg.br/~mtov/pub/2018-saner-apidiff.pdf). In 25th International Conference on Software Analysis, Evolution and Reengineering (SANER), Tool Track, pages 1-5, 2018.
+Aline Brito, Laerte Xavier, Andre Hora, Marco Tulio Valente. [APIDiff: Detecting API Breaking Changes](http://homepages.dcc.ufmg.br/~mtov/pub/2018-saner-apiTimeLIfe.pdf). In 25th International Conference on Software Analysis, Evolution and Reengineering (SANER), Tool Track, pages 1-5, 2018.
 
 Learn more about our research group at http://aserg.labsoft.dcc.ufmg.br/

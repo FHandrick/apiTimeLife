@@ -114,7 +114,7 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>3.0.2</version>
 				<configuration>
-					<finalName>apidiff</finalName>
+					<finalName>apiTimeLIfe</finalName>
 				</configuration>
 			</plugin>
 			<plugin>

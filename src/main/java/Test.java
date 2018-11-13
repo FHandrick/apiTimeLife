@@ -1,10 +1,10 @@
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
-import apidiff.APIDiff;
-import apidiff.Change;
-import apidiff.Result;
-import apidiff.enums.Classifier;
+import apiTimeLIfe.APIDiff;
+import apiTimeLIfe.Change;
+import apiTimeLIfe.Result;
+import apiTimeLIfe.enums.Classifier;
 
 public class Test {
 
