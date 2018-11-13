@@ -1,9 +1,10 @@
-# APIDiff
+# APITimeLife
 
-A tool to identify API breaking and non-breaking changes between two versions of a Java library. APIDiff analyses libraries hosted on the distributed version control system _git_.
+A tool to identify API breaking and non-breaking changes between two versions of a Java library. apiTimeLife analyses libraries hosted on the distributed version control system _git_.
 
 ## Contributors
-The project has been maintained by [Aline Brito](https://github.com/alinebrito) and [Laerte Xavier](https://github.com/xavierlaerte) under supervision of Professor [Marco Tulio Valente](https://github.com/mtov) ([Aserg](http://aserg.labsoft.dcc.ufmg.br/) [UFMG](https://www.ufmg.br/)) and Professor [Andre Hora](https://github.com/andrehora) ([UFMS](https://www.ufms.br/) [FACOM](https://www.facom.ufms.br/)).
+The project has been maintained by [Francisco Handrick](https://github.com/FHandrick) under supervision of Professor [Rodrigo Bonifácio](https://github.com/rbonifacio) ([CIC](https://cic.unb.br/) [UNB](https://www.unb.br/)).
+
 
 ## Catalog
 
@@ -24,60 +25,35 @@ The following _Non-breaking Changes_ (NBC) are supported:
 | Field  | Pull Up Field, Add Field, Deprecated Field, Gain Visibility, Remove Final Modifier|
 
 
-The refactorings catalog is reused from [RefDiff](https://github.com/aserg-ufmg/RefDiff).
+The refactorings catalog is reused from [apiDiff](https://github.com/aserg-ufmg/apidiff).
 
 ## Examples
 
 * Detecting changes in version histories:
 
 ```java
-APIDiff diff = new APIDiff("bumptech/glide", "https://github.com/bumptech/glide.git");
-diff.setPath("/home/projects/github");
+APIDiff diff = new APIDiff("bcgit/bc-java", "https://github.com/bcgit/bc-java.git");
+diff.setPath("/home/francisco/github");
 
 Result result = diff.detectChangeAllHistory("master", Classifier.API);
 for(Change changeMethod : result.getChangeMethod()){
     System.out.println("\n" + changeMethod.getCategory().getDisplayName() + " - " + changeMethod.getDescription());
 }
 ```
-* Detecting changes in specific commit:
+* Detecting changes between two specific commit:
 
 ```java
-APIDiff diff = new APIDiff("mockito/mockito", "https://github.com/mockito/mockito.git");
-diff.setPath("/home/projects/github");
-
-Result result = diff.detectChangeAtCommit("4ad5fdc14ca4b979155d10dcea0182c82380aefa", Classifier.API);
-for(Change changeMethod : result.getChangeMethod()){
-    System.out.println("\n" + changeMethod.getCategory().getDisplayName() + " - " + changeMethod.getDescription());
+APIDiff diff = new APIDiff("bcgit/bc-java", "https://github.com/bcgit/bc-java.git");
+diff.setPath("/home/francisco/github");
+Release re = new Release();
+re.insert();
+    	
+for (int i = 0; i<re.comparations.size();i++) {	
+	for(Change changeMethod : result.getChangeMethod()){
+		System.out.println("\n" + changeMethod.getCategory().getDisplayName() + " - " + changeMethod.getDescription());
+	}
 }
 ```
-* Fetching new commits:
-
-```java
-APIDiff diff = new APIDiff("bumptech/glide", "https://github.com/bumptech/glide.git");
-diff.setPath("/home/projects/github");
-    
-Result result = diff.fetchAndDetectChange(Classifier.API);
-for(Change changeMethod : result.getChangeMethod()){
-    System.out.println("\n" + changeMethod.getCategory().getDisplayName() + " - " + changeMethod.getDescription());
-}
-```
-
-* Writing a CSV file:
-
-```java
-APIDiff diff = new APIDiff("mockito/mockito", "https://github.com/mockito/mockito.git");
-diff.setPath("/home/projects/github");
-Result result = diff.detectChangeAtCommit("4ad5fdc14ca4b979155d10dcea0182c82380aefa", Classifier.API);
-		
-List<String> listChanges = new ArrayList<String>();
-listChanges.add("Category;isDeprecated;containsJavadoc");
-for(Change changeMethod : result.getChangeMethod()){
-    String change = changeMethod.getCategory().getDisplayName() + ";" + changeMethod.isDeprecated()  + ";" + changeMethod.containsJavadoc() ;
-    listChanges.add(change);
-}
-UtilFile.writeFile("output.csv", listChanges);
-```
-
 * Filtering Packages according to their names:
 
 ```java 
@@ -96,7 +72,7 @@ Classifier.API: Elements that are not non-APIs.
 
 ## Usage
 
-APIDiff is available in the [Maven Central Repository](https://mvnrepository.com/artifact/com.github.aserg-ufmg/apiTimeLIfe/2.0.0):
+APITimeLife is available in the [Maven Central Repository](https://mvnrepository.com/artifact/com.github.aserg-ufmg/apiTimeLIfe/2.0.0):
 
 ```xml
 <dependency>
@@ -105,8 +81,3 @@ APIDiff is available in the [Maven Central Repository](https://mvnrepository.com
     <version>2.0.0</version>
 </dependency>
 ```
-## Publications
-
-Aline Brito, Laerte Xavier, Andre Hora, Marco Tulio Valente. [APIDiff: Detecting API Breaking Changes](http://homepages.dcc.ufmg.br/~mtov/pub/2018-saner-apiTimeLIfe.pdf). In 25th International Conference on Software Analysis, Evolution and Reengineering (SANER), Tool Track, pages 1-5, 2018.
-
-Learn more about our research group at http://aserg.labsoft.dcc.ufmg.br/
