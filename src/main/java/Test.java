@@ -19,14 +19,14 @@ public class Test {
     	Release re = new Release();
     	re.insert();
     	
-    	for (int i = 0; i<re.comparations.size();i++) {
-    		System.out.println(re.comparations.get(i).commitBegin+ " Compared with: "+re.comparations.get(i).commitFinal);
+    	for (int i = 0; i<re.comparison.size();i++) {
+    		System.out.println(re.comparison.get(i).commitBegin+ " Compared with: "+re.comparison.get(i).commitFinal);
     		System.out.println( "================"+"Comparation Number:"+i+"===========================================" );
     		
     		
-        	file = new FileWriter(re.comparations.get(i).commitBegin+"_"+re.comparations.get(i).commitFinal+".pl");
+        	file = new FileWriter(re.comparison.get(i).commitBegin+"_"+re.comparison.get(i).commitFinal+".pl");
         	PrintWriter recordFile = new PrintWriter(file);
-        	Result result = diff.detectChangeBetweenCommits(re.comparations.get(i).commitBegin, re.comparations.get(i).commitFinal,Classifier.API);
+        	Result result = diff.detectChangeBetweenCommits(re.comparison.get(i).commitBegin, re.comparison.get(i).commitFinal,Classifier.API);
         	
         	recordFile.printf("/* facts */"+"\n");
         	

@@ -44,11 +44,11 @@ for(Change changeMethod : result.getChangeMethod()){
 
 ```java
 APIDiff diff = new APIDiff("bcgit/bc-java", "https://github.com/bcgit/bc-java.git");
-diff.setPath("/home/francisco/github");
+diff.setPath("/home/github");
 Release re = new Release();
 re.insert();
     	
-for (int i = 0; i<re.comparations.size();i++) {	
+for (int i = 0; i<re.comparison.size();i++) {	
 	for(Change changeMethod : result.getChangeMethod()){
 		System.out.println("\n" + changeMethod.getCategory().getDisplayName() + " - " + changeMethod.getDescription());
 	}

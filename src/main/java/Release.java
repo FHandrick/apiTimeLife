@@ -3,11 +3,11 @@ import java.util.ArrayList;
 public class Release {
 	
 	ArrayList<String> release = new ArrayList<String>();
-	ArrayList<Comparation> comparations = new ArrayList<Comparation>();
+	ArrayList<Comparison> comparison = new ArrayList<Comparison>();
 
 	
 	
-	public ArrayList<Comparation> insert () {
+	public ArrayList<Comparison> insert () {
 		
 		release.add("52b0902592e770b8116f80f2eab7a4048b589d7d");
 		release.add("6de1c17dda8ffdb19431ffcadbce1836867a27a9");
@@ -23,9 +23,9 @@ public class Release {
 		release.add("4f7f299340043738ff3a269724d4a9ab18e739d2");
 		
 		for (int i=0 ; i<release.size()-1 ; i++) {
-				Comparation c = new Comparation(release.get(i),release.get(i+1));
-				comparations.add(c);
+			    Comparison c = new Comparison(release.get(i),release.get(i+1));
+				comparison.add(c);
 		}
-		return comparations;
+		return comparison;
 	}
 }
