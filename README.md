@@ -44,7 +44,7 @@ for(Change changeMethod : result.getChangeMethod()){
 
 ```java
 APIDiff diff = new APIDiff("bcgit/bc-java", "https://github.com/bcgit/bc-java.git");
-diff.setPath("/home/francisco/github");
+diff.setPath("/home/github");
 Release re = new Release();
 re.insert();
     	
