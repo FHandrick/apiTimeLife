@@ -10,6 +10,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
 
 public interface GitService {
 
+	
 	Repository openRepositoryAndCloneIfNotExists(String path, String projectName, String cloneUrl) throws Exception;
 	
 	RevWalk fetchAndCreateNewRevsWalk(Repository repository, String branch) throws Exception;
@@ -23,4 +24,7 @@ public interface GitService {
 	RevCommit createRevCommitByCommitId(final Repository repository, final String commitId) throws Exception;
 	
 	public RevWalk createAllRevsWalk(Repository repository, String branch) throws Exception;
+
+	RevWalk createRevsWalkBetweenCommits(Repository repository, String startCommitId, String endCommitId)
+			throws Exception;
 }

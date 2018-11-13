@@ -97,6 +97,25 @@ public class GitServiceImpl implements GitService {
 			return "RegularCommitsFilter";
 		}
 	}
+
+	
+	//Method created by Handrick
+	@Override
+	public RevWalk createRevsWalkBetweenCommits(Repository repository, String startCommitId, String endCommitId)
+			throws Exception {
+		RevWalk walk = new RevWalk(repository);
+		
+		ObjectId startCommit = repository.resolve(startCommitId);
+        walk.markStart(walk.parseCommit(startCommit));
+
+        if (endCommitId != null) {
+        		ObjectId endCommit = repository.resolve(endCommitId);  
+            walk.markUninteresting(walk.parseCommit(endCommit));
+        }
+		
+		walk.setRevFilter(commitsFilter);
+		return walk;
+	}
 	
 	@Override
 	public Repository openRepositoryAndCloneIfNotExists(String path, String projectName, String cloneUrl) throws Exception {

@@ -1,11 +1,11 @@
 package apidiff;
-
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import org.eclipse.jgit.diff.DiffEntry.ChangeType;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -44,20 +44,59 @@ public class APIDiff implements DiffDetector{
 	public void setPath(String path) {
 		this.path = path;
 	}
+	
 
 	@Override
 	public Result detectChangeAtCommit(String commitId, Classifier classifierAPI) {
 		Result result = new Result();
 		try {
 			GitService service = new GitServiceImpl();
+			
 			Repository repository = service.openRepositoryAndCloneIfNotExists(this.path, this.nameProject, this.url);
 			RevCommit commit = service.createRevCommitByCommitId(repository, commitId);
 			Result resultByClassifier = this.diffCommit(commit, repository, this.nameProject, classifierAPI);
 			result.getChangeType().addAll(resultByClassifier.getChangeType());
 			result.getChangeMethod().addAll(resultByClassifier.getChangeMethod());
 			result.getChangeField().addAll(resultByClassifier.getChangeField());
+			
+			
 		} catch (Exception e) {
 			this.logger.error("Error in calculating commitn diff ", e);
+		}
+		this.logger.info("Finished processing.");
+		return result;
+	}
+	
+	@Override
+	public Result detectChangeByDate(String branch, List<Classifier> classifiers, String dt) throws Exception {
+		Result result = new Result();
+		GitService service = new GitServiceImpl();
+		Repository repository = service.openRepositoryAndCloneIfNotExists(this.path, this.nameProject, this.url);
+		RevWalk revWalk = service. createAllRevsWalk(repository, branch);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Iterator<RevCommit> i = revWalk.iterator();
+		while(i.hasNext()){
+			RevCommit currentCommit = i.next();
+			
+			Date d1 = sdf.parse(dt);
+			Date d2 = new Date(currentCommit.getCommitTime() * 1000L);
+			
+			if (d1.compareTo(d2) < 0) {
+			
+				for(Classifier classifierAPI: classifiers){
+					Result resultByClassifier = this.diffCommit(currentCommit, repository, this.nameProject, classifierAPI);
+					result.getChangeType().addAll(resultByClassifier.getChangeType());
+					result.getChangeMethod().addAll(resultByClassifier.getChangeMethod());
+					result.getChangeField().addAll(resultByClassifier.getChangeField());
+				}
+				System.out.println(d2);
+				
+			}
+			else {
+				break;
+			}
+			
 		}
 		this.logger.info("Finished processing.");
 		return result;
@@ -68,8 +107,8 @@ public class APIDiff implements DiffDetector{
 		Result result = new Result();
 		GitService service = new GitServiceImpl();
 		Repository repository = service.openRepositoryAndCloneIfNotExists(this.path, this.nameProject, this.url);
-		RevWalk revWalk = service.createAllRevsWalk(repository, branch);
-		//Commits.
+		RevWalk revWalk = service. createAllRevsWalk(repository, branch);
+		int controller = 0;
 		Iterator<RevCommit> i = revWalk.iterator();
 		while(i.hasNext()){
 			RevCommit currentCommit = i.next();
@@ -79,9 +118,45 @@ public class APIDiff implements DiffDetector{
 				result.getChangeMethod().addAll(resultByClassifier.getChangeMethod());
 				result.getChangeField().addAll(resultByClassifier.getChangeField());
 			}
+			controller++;
+			if (controller>3000)
+				break;
+			
 		}
 		this.logger.info("Finished processing.");
 		return result;
+	}
+			
+	public Result detectChangeBetweenCommits(final String rev1, final String rev2, List<Classifier> classifiers) throws Exception {
+		
+		Result result = new Result();
+		try {
+			GitService service = new GitServiceImpl();
+			
+			Repository repository = service.openRepositoryAndCloneIfNotExists(this.path, this.nameProject, this.url);		
+			RevWalk walk = service.createRevsWalkBetweenCommits(repository, rev1, rev2);	
+			Iterator<RevCommit> i = walk.iterator();
+			//int control = 0;
+			while(i.hasNext()){
+				RevCommit currentCommit = i.next();
+				for(Classifier classifierAPI: classifiers){
+					Result resultByClassifier = this.diffCommit(currentCommit, repository, this.nameProject, classifierAPI);
+					result.getChangeType().addAll(resultByClassifier.getChangeType());
+					result.getChangeMethod().addAll(resultByClassifier.getChangeMethod());
+					result.getChangeField().addAll(resultByClassifier.getChangeField());
+				}
+				//if (control == 15)
+				//	break;
+				//control++;
+			}
+						
+		} catch (Exception e) {
+			this.logger.error("Error in calculating commitn diff ", e);
+		}
+		this.logger.info("Finished processing.");
+		return result;
+		
+		
 	}
 	
 	@Override
@@ -114,11 +189,24 @@ public class APIDiff implements DiffDetector{
 		this.logger.info("Finished processing.");
 		return result;
 	}
+	@Override
+	public Result detectChangeBetweenCommits(String rev1, String rev2, Classifier classifier) throws Exception {
+		return this.detectChangeBetweenCommits(rev1, rev2, Arrays.asList(classifier));
+	}
+	
+	
+	@Override
+	public Result detectChangeByDate(String branch, Classifier classifier, String dt) throws Exception {
+		return this.detectChangeByDate(branch, Arrays.asList(classifier), dt);
+	}
+	
 	
 	@Override
 	public Result detectChangeAllHistory(String branch, Classifier classifier) throws Exception {
 		return this.detectChangeAllHistory(branch, Arrays.asList(classifier));
 	}
+	
+
 
 	@Override
 	public Result detectChangeAllHistory(Classifier classifier) throws Exception {
@@ -129,7 +217,7 @@ public class APIDiff implements DiffDetector{
 	public Result fetchAndDetectChange(Classifier classifier) throws Exception {
 		return this.fetchAndDetectChange(Arrays.asList(classifier));
 	}
-	
+		
 	private Result diffCommit(final RevCommit currentCommit, final Repository repository, String nameProject, Classifier classifierAPI) throws Exception{
 		File projectFolder = new File(UtilTools.getPathProject(this.path, nameProject));
 		if(currentCommit.getParentCount() != 0){//there is at least one parent
