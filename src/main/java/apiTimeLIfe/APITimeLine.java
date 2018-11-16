@@ -59,7 +59,7 @@ public class APITimeLine implements DiffDetector{
 		this.path = path;
 	}
 	
-	public void createPrologFile(String csvFIle) throws Exception {
+	public void createPrologFile(String csvFile, String prologFile) throws Exception {
 		
 		ArrayList<String> release = new ArrayList<String>();
 	    BufferedReader br = null;
@@ -69,7 +69,7 @@ public class APITimeLine implements DiffDetector{
 	    char ch='"';
 	    try {
 
-	        br = new BufferedReader(new FileReader(csvFIle));
+	        br = new BufferedReader(new FileReader(csvFile));
 	        while ((linha = br.readLine()) != null) {
 
 	            String[] commit = linha.split(csvDivisor);
@@ -98,7 +98,7 @@ public class APITimeLine implements DiffDetector{
     	for (int i = 0; i<re.comparison.size();i++) {
     		prologLine.clear();
     		
-    		file = (re.comparison.get(i).commitBegin+"_"+re.comparison.get(i).commitFinal+".pl");
+    		file = (prologFile+"_"+re.comparison.get(i).commitBegin+"_"+re.comparison.get(i).commitFinal+".pl");
         	Result result = this.detectChangeBetweenCommits(re.comparison.get(i).commitBegin, re.comparison.get(i).commitFinal,Classifier.API);
         	
         	prologLine.add("/* facts */"+"\n");
@@ -197,10 +197,7 @@ public class APITimeLine implements DiffDetector{
         							(changeMethod.getDescription()).length()-11)+ch+").");
         	    	
         	    }	    
-        	    
         	}
-        	
-    		
         	prologLine.add("\n");
         	prologLine.add("method_move_count(Y):-findall(X,method(1,A,B,C),L),length(L,Y).");
         	prologLine.add("method_rename_count(Y):-findall(X,method(2,A,B,C),L),length(L,Y).");
@@ -310,7 +307,7 @@ public class APITimeLine implements DiffDetector{
 			Repository repository = service.openRepositoryAndCloneIfNotExists(this.path, this.nameProject, this.url);		
 			RevWalk walk = service.createRevsWalkBetweenCommits(repository, rev1, rev2);	
 			Iterator<RevCommit> i = walk.iterator();
-			int control = 0;
+			//int control = 0;
 			while(i.hasNext()){
 				RevCommit currentCommit = i.next();
 				for(Classifier classifierAPI: classifiers){
@@ -319,9 +316,9 @@ public class APITimeLine implements DiffDetector{
 					result.getChangeMethod().addAll(resultByClassifier.getChangeMethod());
 					result.getChangeField().addAll(resultByClassifier.getChangeField());
 				}
-				if (control == 15)
-					break;
-				control++;
+				//if (control == 15)
+				//	break;
+				//control++;
 			}
 						
 		} catch (Exception e) {
