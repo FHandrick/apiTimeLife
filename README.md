@@ -1,6 +1,6 @@
 # APITimeLife
 
-A tool to identify API breaking and non-breaking changes between two versions of a Java library. apiTimeLife analyses libraries hosted on the distributed version control system _git_.
+A tool to identify API breaking changes between two versions of a Java library. apiTimeLife analyses libraries hosted on the distributed version control system _git_.
 
 ## Contributors
 The project has been maintained by [Francisco Handrick](https://github.com/FHandrick) under supervision of Professor [Rodrigo Bonifácio](https://github.com/rbonifacio) ([CIC](https://cic.unb.br/) [UNB](https://www.unb.br/)).
