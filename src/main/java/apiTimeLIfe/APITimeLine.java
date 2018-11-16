@@ -22,7 +22,7 @@ import apiTimeLIfe.internal.service.git.GitServiceImpl;
 import apiTimeLIfe.internal.util.UtilTools;
 import apiTimeLIfe.internal.visitor.APIVersion;
 
-public class APIDiff implements DiffDetector{
+public class APITimeLine implements DiffDetector{
 	
 	private String nameProject;
 	
@@ -30,9 +30,9 @@ public class APIDiff implements DiffDetector{
 	
 	private String url;
 	
-	private Logger logger = LoggerFactory.getLogger(APIDiff.class);
+	private Logger logger = LoggerFactory.getLogger(APITimeLine.class);
 
-	public APIDiff(final String nameProject, final String url) {
+	public APITimeLine(final String nameProject, final String url) {
 		this.url = url;
 		this.nameProject = nameProject;
 	}

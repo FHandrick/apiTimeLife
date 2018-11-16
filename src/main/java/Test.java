@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-import apiTimeLIfe.APIDiff;
+import apiTimeLIfe.APITimeLine;
 import apiTimeLIfe.Change;
 import apiTimeLIfe.Result;
 import apiTimeLIfe.enums.Classifier;
@@ -12,7 +12,7 @@ public class Test {
 		
 		String file = "";
 		char ch='"';
-		APIDiff diff = new APIDiff("bcgit/bc-java", "https://github.com/bcgit/bc-java.git");
+		APITimeLine diff = new APITimeLine("bcgit/bc-java", "https://github.com/bcgit/bc-java.git");
     	diff.setPath("/home/francisco/github");
     	
     
@@ -27,6 +27,17 @@ public class Test {
         	Result result = diff.detectChangeBetweenCommits(re.comparison.get(i).commitBegin, re.comparison.get(i).commitFinal,Classifier.API);
 
         	prologLine.add("/* facts */"+"\n");
+        	prologLine.add("/* metohod(1...  - Move Method */");
+        	prologLine.add("/* metohod(2...  - Rename Method */");
+        	prologLine.add("/* metohod(3...  - Remove Method */");
+        	prologLine.add("/* metohod(4...  - Push Down Method */");
+        	prologLine.add("/* metohod(5...  - Inline Method */");
+        	prologLine.add("/* metohod(6...  - Change in Parameter List Method */");
+        	prologLine.add("/* metohod(7...  - Change in Exception LIst Method*/");
+        	prologLine.add("/* metohod(8...  - Change in Return TYpe Method */");
+        	prologLine.add("/* metohod(9...  - Lost Visibility Method */");
+        	prologLine.add("/* metohod(10...  - Add Final Modifier */");
+        	prologLine.add("/* metohod(11...  - Remove Static Modifier */"+"\n");
         	
         	for(Change changeMethod : result.getChangeMethod()){
         		
