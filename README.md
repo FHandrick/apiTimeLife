@@ -1,5 +1,7 @@
 # APITimeLife
 
+Forked from [apiDiff](https://github.com/aserg-ufmg/apidiff).
+
 A tool to identify API breaking changes between two versions of a Java library. apiTimeLife analyses libraries hosted on the distributed version control system _git_.
 
 ## Contributors
