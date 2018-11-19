@@ -20,30 +20,27 @@ The refactorings catalog is reused from [apiDiff](https://github.com/aserg-ufmg/
 
 ## Examples
 
-* Detecting changes in version histories:
+* Detecting changes in all versions in a CSV file:
 
 ```java
-APIDiff diff = new APIDiff("bcgit/bc-java", "https://github.com/bcgit/bc-java.git");
+String csvFile = "googleTinkcommits.csv";
+String prologFile = "googletink";
+APITimeLine diff = new APITimeLine("google/tink", "https://github.com/google/tink.git");
+		
 diff.setPath("/home/francisco/github");
-
-Result result = diff.detectChangeAllHistory("master", Classifier.API);
-for(Change changeMethod : result.getChangeMethod()){
-    System.out.println("\n" + changeMethod.getCategory().getDisplayName() + " - " + changeMethod.getDescription());
-}
+diff.createPrologFile(csvFile,prologFile);
 ```
 * Detecting changes between two specific commit:
 
-```java
-APIDiff diff = new APIDiff("bcgit/bc-java", "https://github.com/bcgit/bc-java.git");
-diff.setPath("/home/github");
-Release re = new Release();
-re.insert();
-    	
-for (int i = 0; i<re.comparison.size();i++) {	
-	for(Change changeMethod : result.getChangeMethod()){
-		System.out.println("\n" + changeMethod.getCategory().getDisplayName() + " - " + changeMethod.getDescription());
-	}
-}
+```CSV file
+2ec8d120b70290766ea34333ec2dace5795ad5bb
+f2df5dfbe6e3112c758a67eab4e3d8c4aa864304
+bbe5e49ab9a999acfeea0965d6b7aacc3de08520
+359f3cec5efce26fe0a56ec35965945936dbb104
+e76fa741bd25114a34e690911ddd2501670458a8
+068112c13712e04ca035d7232873ca0a3e60d0a6
+7e4426207f60a6657a3a8fd1672cd8fbe01334c4
+99edf8dfe462bff711095d881c00fcd3cb2da224
 ```
 * Filtering Packages according to their names:
 
