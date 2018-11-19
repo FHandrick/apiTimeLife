@@ -89,6 +89,6 @@ APITimeLife is available in the [Maven Central Repository](https://mvnrepository
 <dependency>
     <groupId>com.github.fhandrick</groupId>
     <artifactId>apiTimeLIfe</artifactId>
-    <version>2.0.0</version>
+    <version>1.0.0</version>
 </dependency>
 ```
