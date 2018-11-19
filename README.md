@@ -83,7 +83,7 @@ Classifier.API: Elements that are not non-APIs.
 
 ## Usage
 
-APITimeLife is available in the [Maven Central Repository](https://mvnrepository.com/artifact/com.github.aserg-ufmg/apiTimeLIfe/2.0.0):
+APITimeLife is available in the [Maven Central Repository](https://mvnrepository.com/artifact/com.github.aserg-ufmg/apiTimeLIfe/1.0.0):
 
 ```xml
 <dependency>
