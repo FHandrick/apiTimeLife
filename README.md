@@ -30,7 +30,7 @@ APITimeLine diff = new APITimeLine("google/tink", "https://github.com/google/tin
 diff.setPath("/home/francisco/github");
 diff.createPrologFile(csvFile,prologFile);
 ```
-* Detecting changes between two specific commit:
+* CSV File and one of the final Prolog file :
 
 ```CSV file
 2ec8d120b70290766ea34333ec2dace5795ad5bb
@@ -42,6 +42,27 @@ e76fa741bd25114a34e690911ddd2501670458a8
 7e4426207f60a6657a3a8fd1672cd8fbe01334c4
 99edf8dfe462bff711095d881c00fcd3cb2da224
 ```
+```Prolog file
+/* facts */
+
+/* metohod(1...  - Move Method */
+/* metohod(2...  - Rename Method */
+/* metohod(3...  - Remove Method */
+/* metohod(4...  - Push Down Method */
+/* metohod(5...  - Inline Method */
+/* metohod(6...  - Change in Parameter List Method */
+/* metohod(7...  - Change in Exception LIst Method*/
+/* metohod(8...  - Change in Return TYpe Method */
+/* metohod(9...  - Lost Visibility Method */
+/* metohod(10...  - Add Final Modifier */
+/* metohod(11...  - Remove Static Modifier */
+
+method(7,"EcdsaSignJce(final ECPrivateKey priv, String signatureAlgorithm, EcdsaEncoding encoding)","com.google.crypto.tink.subtle.EcdsaSignJce").
+method(3,"EcdsaSignJce(final ECPrivateKey priv, String signatureAlgorithm)","com.google.crypto.tink.subtle.EcdsaSignJce").
+method(3,"EcdsaVerifyJce(final ECPublicKey pubKey, String signatureAlgorithm)","com.google.crypto.tink.subtle.EcdsaVerifyJce").
+
+```
+
 * Filtering Packages according to their names:
 
 ```java 
