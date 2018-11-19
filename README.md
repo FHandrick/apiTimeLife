@@ -12,17 +12,8 @@ The following _Breaking Changes_ (BC) are supported:
 
 | Element  | Breaking Changes (BC) |
 | ------------- | ------------- |
-| Type  | Rename Type, Move Type, Move and Rename Type, Remove Type, Lost Visibility, Add Final Modifier,  Remove Static Modifier, Change in Supertype, Remove Supertype |
 | Method  | Move Method, Rename Method, Remove Method, Push Down Method, Inline Method, Change in Parameter List, Change in Exception List, Change in Return Type Method, Lost Visibility, Add Final Modifier, Remove Static Modifier  | 
-| Field  |  Remove Field, Move Field, Push Down Field, Change in Default Value, Change in Type Field,  Lost Visibility, Add Final Modifier | 
-
-The following _Non-breaking Changes_ (NBC) are supported: 
-
-| Element  | Non-breaking Changes (NBC) |
-| ------------- | ------------- |
-| Type  | Add Type, Extract Supertype, Gain Visibility, Remove Final Modifier, Add Static Modifier, Add Supertype, Deprecated Type |
-| Method  | Pull Up Method, Gain Visibility, Remove Final Modifier, Add Static Modifier, Deprecated Method, Add Method, Extract Method| 
-| Field  | Pull Up Field, Add Field, Deprecated Field, Gain Visibility, Remove Final Modifier|
+ 
 
 
 The refactorings catalog is reused from [apiDiff](https://github.com/aserg-ufmg/apidiff).
